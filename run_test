@@ -1,0 +1,17 @@
+#!/bin/bash
+
+
+cd test
+
+javac -cp amqp-client-4.0.2.jar Send.java Recv.java
+
+java -cp .:amqp-client-4.0.2.jar:slf4j-api-1.7.21.jar:slf4j-simple-1.7.22.jar Recv &
+
+echo "Sending 1st message"
+java -cp .:amqp-client-4.0.2.jar:slf4j-api-1.7.21.jar:slf4j-simple-1.7.22.jar Send &
+
+echo "Sending 2nd message"
+java -cp .:amqp-client-4.0.2.jar:slf4j-api-1.7.21.jar:slf4j-simple-1.7.22.jar Send &
+sleep 2
+
+ps -ef|grep amqp-client-4.0.2|grep -v grep|awk '{print $2}'|xargs sudo kill -9

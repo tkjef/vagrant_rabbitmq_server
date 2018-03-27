@@ -1,0 +1,10 @@
+#!/bin/bash
+
+DEBIAN_FRONTEND=noninteractive
+HST_NAME=`ip addr show|grep 'inet '|tail -1|awk '{print $2}'|cut -d/ -f1`
+
+echo "Updating rabbitmq host on test scripts." 
+cd /home/vagrant/rabbitmq/test
+
+sed -i "s/factory.setHost(\"localhost\");/factory.setHost(\"$HST_NAME\");/g" Send.java
+sed -i "s/factory.setHost(\"localhost\");/factory.setHost(\"$HST_NAME\");/g" Recv.java

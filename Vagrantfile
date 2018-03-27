@@ -43,7 +43,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     server.vm.box = "ubuntu/xenial64"
     config.vm.box_version = "20180316.0.0"
     server.vm.hostname = 'rabbitmq-server.lotus'
-    server.vm.network "public_network"
+    server.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)"
     # server.vm.network :private_network, ip: ENV['ALTERNATE_IP'] || '192.168.56.20'
     # server.vm.network :forwarded_port, guest: 15672, host: 15672, auto_correct: true
     server.vm.provision :shell, :path => "prov/provision_server_u1604.sh"
